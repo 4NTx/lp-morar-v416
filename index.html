@@ -1,0 +1,354 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Apartamento Bombas V416</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap">
+<script>(function(){var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap";document.head.appendChild(l)})()</script>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"></noscript>
+<link rel="preload" as="image" href="img/p1.webp" imagesrcset="img/p1-800.webp 800w, img/p1.webp 1448w" imagesizes="(max-width:820px) 100vw, 58vw" fetchpriority="high">
+<style>
+/* Layout: same structure as V026, colors inverted (wine ground, white type/buttons), white logo, bordered cards, [bracket] section labels. Single look by choice. */
+:root{
+  --wine:#751d4b; --bg:#ffffff; --panel:#f9f9f9; --panel-2:#f9f9f9;
+  --ink:#232323; --text:#404040; --mute:#6f6f6f; --accent:#751d4b;
+  --line:#e3e3e3; --edge:#cfcfcf; --r:10px;
+  --font:"Roboto","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:400 1.0625rem/1.65 var(--font);margin:0}
+/* light bands: same components, tokens flipped to white ground with wine type */
+.light{background:var(--bg);color:var(--text)}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{padding-block:56px}
+.lab{font:500 .78rem/1.2 var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+h1,h2{color:var(--ink);margin:0;text-wrap:balance}
+h2{font-weight:300;font-size:clamp(1.6rem,3.4vw,2.6rem);letter-spacing:-.02em;line-height:1.15}
+h2 span{color:var(--mute)}
+:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+
+.btn{display:inline-block;text-decoration:none;font-weight:500;font-size:.92rem;padding:13px 24px;border-radius:999px;border:1px solid var(--wine);color:var(--wine);background:transparent;transition:background .2s,color .2s}
+.btn.solid{background:var(--wine);color:#fff}
+.btn:hover{background:#5a1538;border-color:#5a1538;color:#fff}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+
+.sec{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:10px;margin-bottom:24px}
+.sec .lab{color:var(--ink)}
+.sec .lab:last-child{color:var(--mute)}
+.sec .lab::before{content:"[ "}
+.sec .lab::after{content:" ]"}
+
+/* header */
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px;border-bottom:1px solid var(--line)}
+.logo{height:44px;width:auto;display:block}
+.top-r{display:flex;align-items:center;gap:20px}
+.top-r b{font-weight:500;color:var(--ink);white-space:nowrap}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:center;padding-block:48px}
+.hero h1{font-weight:200;font-size:clamp(2.6rem,4.8vw,4.1rem);line-height:1;letter-spacing:-.045em;margin:14px 0 22px}
+.hero h1 span{color:var(--wine)}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.pills span{background:var(--wine);color:#fff;border-radius:999px;padding:7px 16px;font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.price{margin-bottom:24px}
+.price b{display:block;font-weight:300;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.03em;color:var(--ink);line-height:1.1}
+.hero-img,.gallery figure{position:relative;border-radius:var(--r);margin:0;overflow:hidden;background:var(--panel);max-width:100%}
+.hero-img{aspect-ratio:4/3;border:1px solid var(--edge)}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+.chips{position:absolute;left:12px;right:12px;top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.chips span{background:var(--ink);color:#fff;border-radius:6px;padding:5px 10px;font-size:.74rem;font-weight:500}
+
+/* figures */
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;background:#fff}
+.fig{padding:20px 16px;border-right:1px solid var(--edge);border-bottom:1px solid var(--edge);margin:0 -1px -1px 0}
+.fig b{display:block;font-weight:200;font-size:clamp(2rem,3.6vw,3rem);letter-spacing:-.04em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.fig b small{font-size:.4em;letter-spacing:0;color:var(--mute);margin-left:3px}
+.fig .lab{display:block;margin-top:8px}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.gallery img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.g1,.g2{grid-column:span 3}.g3,.g4,.g5{grid-column:span 2}
+
+/* two columns */
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px}
+.cols h2{margin-bottom:20px}
+.rows{list-style:none;margin:0;padding:0 18px;border:1px solid var(--edge);border-radius:var(--r);background:#fff}
+.rows li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
+.rows li:last-child{border-bottom:0}
+.rows li span:first-child{color:var(--ink);font-weight:500}
+.rows li span:last-child{color:var(--text);text-align:right}
+.dist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:20px}
+.dist div{background:#fff;border:1px solid var(--edge);border-radius:var(--r);padding:18px 18px 16px}
+.dist b{display:block;font-weight:200;font-size:2.4rem;letter-spacing:-.04em;color:var(--accent);line-height:1;margin-bottom:6px}
+.dist p{margin:0;font-size:.9rem}
+
+/* quality of life */
+.inv{background:var(--panel-2)}
+.inv-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:center;background:var(--bg);border:1px solid var(--edge);border-radius:var(--r);padding:32px}
+.inv p{margin:0}
+
+/* value */
+.pay{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:12px}
+.pay-price{background:var(--wine);color:#fff;border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:14px}
+.pay-price .lab{color:#ecd3e0}
+.pay-price b{display:block;font-weight:300;font-size:clamp(2.4rem,4.6vw,3.4rem);letter-spacing:-.04em;line-height:1}
+.pay-price p{margin:0;color:#f3e6ee}
+.pay-price p{margin-bottom:14px}
+.pay-price .btn{align-self:flex-start;margin-top:auto;background:#fff;color:var(--wine);border-color:#fff}
+.pay-price .btn:hover{background:#f1d9e6;border-color:#f1d9e6;color:var(--wine)}
+/* card rhythm: label top, price+text centered, button bottom */
+.pay-price{padding:32px}
+.pay-price .lab{font-size:.82rem}
+.pay-price b{margin-top:auto;font-size:clamp(2.6rem,5vw,4rem)}
+.pay-price p{margin:0 0 10px;font-size:1.2rem;line-height:1.5;font-weight:300}
+.pay-price .btn{margin-top:auto;padding:17px 34px;font-size:1.1rem}
+.pay-price{gap:18px;padding:36px 32px}
+.pay-price .lab{font-size:.9rem}
+.pay-price b{font-weight:400;font-size:clamp(2.9rem,6vw,4.4rem)}
+.pay-price p{font-size:clamp(1.3rem,2.4vw,1.45rem);margin:0 0 12px}
+/* final card rhythm: label, price, note on top; divider + button at the bottom */
+.pay-price{gap:10px;padding:32px}
+.pay-price .lab{font-size:.82rem}
+.pay-price b{margin-top:6px;font-weight:300;font-size:clamp(2.6rem,4.6vw,3.6rem);letter-spacing:-.04em}
+.pay-price{justify-content:center}
+.pay-price p{margin:0;font-size:1.1rem;line-height:1.5;color:#ecd3e0;font-weight:300}
+.pay-foot{margin-top:12px;padding-top:20px;border-top:1px solid rgba(255,255,255,.28)}
+.pay-price .btn{margin-top:0;padding:14px 28px;font-size:1rem}
+.pay-opts{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.pay-opts li{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid var(--edge);border-radius:var(--r);padding:18px 20px}
+.pay-opts .ico{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--wine);color:var(--wine);display:grid;place-items:center;font-weight:500;font-size:.9rem}
+.pay-opts b{display:block;color:var(--ink);font-weight:500}
+.pay-opts p{margin:2px 0 0;font-size:.95rem;color:var(--text)}
+.pay-cta{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border:1px solid var(--edge);border-radius:var(--r);padding:16px 20px;background:var(--panel)}
+.pay-cta p{margin:0}
+.pay-cta b{color:var(--ink);font-weight:500}
+
+footer{padding-block:24px 96px;background:var(--panel-2);border-top:1px solid var(--line)}
+footer .logo{height:36px;margin-bottom:14px}
+footer p{margin:0 0 6px;max-width:90ch;color:var(--mute);font-size:.8rem;line-height:1.55}
+
+/* sales CTAs */
+.wa-ico{width:1.2em;height:1.2em;fill:currentColor;margin-right:8px;vertical-align:-.22em;flex:none}
+.btns .btn.solid{padding:17px 30px;font-size:1.02rem}
+.strip{padding-bottom:56px;margin-top:-16px}
+.strip .pay-cta{margin-top:0}
+.wa-float{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:45;display:flex;align-items:center;gap:10px;background:#158f4a;color:#fff;border-radius:999px;padding:14px 22px 14px 16px;font:500 .98rem/1 var(--font);text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.wa-float::after{content:"";position:absolute;inset:0;border-radius:inherit;border:3px solid #158f4a;opacity:0;pointer-events:none;animation:wapulse 2.6s ease-out infinite}
+.wa-float .wa-ico{width:28px;height:28px;margin:0;fill:#fff}
+.wa-float:hover{background:#0f7a3e}
+@keyframes wapulse{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(1.35);opacity:0}}
+@media (max-width:820px){.wa-float{padding:14px}.wa-float span{display:none}.strip{padding-bottom:40px}}
+@media (prefers-reduced-motion:reduce){.wa-float::after{animation:none}}
+/* lightbox */
+.zoomable{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:50;background:#140c11;display:flex;align-items:center;justify-content:center;padding:68px max(16px,env(safe-area-inset-left,0px)) 76px}
+.lb[hidden]{display:none}
+.lb .track{position:absolute;inset:68px 0 76px;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.lb .track::-webkit-scrollbar{display:none}
+.lb .slide{flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;display:grid;place-items:center;padding:0 84px}
+.lb .slide img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;display:block}
+.lb button{position:absolute;background:#fff;color:var(--wine);border:0;border-radius:50%;width:52px;height:52px;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.lb button svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.lb button:hover{background:var(--wine);color:#fff}
+.lb .prev{left:max(14px,env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%)}
+.lb .next{right:max(14px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%)}
+.lb .close{right:max(12px,env(safe-area-inset-right,0px));top:max(12px,env(safe-area-inset-top,0px))}
+.lb .count{position:absolute;left:0;right:0;bottom:16px;text-align:center;color:#e6c9d8;font-size:.8rem;letter-spacing:.14em}
+
+@media (max-width:820px){
+  .hero,.cols,.inv-grid,.pay{grid-template-columns:minmax(0,1fr)}
+  .hero{gap:28px;padding-block:32px}
+  .hero-img{order:-1}
+  .band{padding-block:40px}
+  .cols{gap:36px}
+  .top-r .btn{padding:10px 14px;font-size:.82rem;white-space:nowrap}
+  .sec .lab{white-space:nowrap}
+  .sec .lab:last-child{display:none}
+  .inv-grid{padding:22px;gap:20px}
+  .rows li{flex-direction:column;gap:2px}.rows li span:last-child{text-align:left}
+  .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .gallery::-webkit-scrollbar{display:none}
+  .gallery figure{flex:0 0 82%;scroll-snap-align:start}
+  .lb .track{inset:68px 0 84px}
+  .lb .slide{padding:0 8px}
+  .lb .prev,.lb .next{top:auto;bottom:max(14px,env(safe-area-inset-bottom,0px));transform:none}
+  .lb .prev{left:max(16px,env(safe-area-inset-left,0px))}
+  .lb .next{right:max(16px,env(safe-area-inset-right,0px))}
+  .lb .count{bottom:max(30px,calc(env(safe-area-inset-bottom,0px) + 30px))}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<meta name="description" content="Apartamento reformado a 100 m da Praia de Bombas, Bombinhas/SC. 2 dormitórios (1 suíte), sacada com churrasqueira, semi mobiliado. A partir de R$ 900.000.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Apartamento a 100 m do mar, em Bombas">
+<meta property="og:description" content="Reformado em 2025, 2 dormitórios, sacada com churrasqueira. A partir de R$ 900.000.">
+<meta property="og:image" content="img/p1.webp">
+<link rel="icon" href="img/logo.webp" type="image/webp">
+</head>
+<body>
+<header class="wrap top">
+  <img class="logo" src="img/logo.webp" alt="Morar Imóveis">
+  <div class="top-r">
+    
+    <a class="btn solid" data-wa="Olá! Tenho interesse no apartamento V416 (Bombas, Bombinhas) e gostaria de agendar uma visita." href="https://wa.me/554733691251" target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Chamar no WhatsApp</a>
+  </div>
+</header>
+
+<main>
+<section class="wrap hero">
+  <div>
+    <span class="lab">Cód. V416 · Bombas · Bombinhas/SC</span>
+    <h1>Apartamento a 100 m <span>do mar, em Bombas</span></h1>
+    <div class="pills"><span>Reformado em 2025</span><span>Sacada com churrasqueira</span><span>Semi mobiliado</span></div>
+    <div class="price"><span class="lab">A partir de</span><b>R$ 900.000</b></div>
+    <div class="btns">
+      <a class="btn solid" data-wa="Olá! Tenho interesse no apartamento V416 (Bombas, Bombinhas) e gostaria de agendar uma visita." href="https://wa.me/554733691251" target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Agendar visita pelo WhatsApp</a>
+      <a class="btn" href="#valor">Ver valor</a>
+    </div>
+  </div>
+  <figure class="hero-img"><img src="img/p1.webp" srcset="img/p1-800.webp 800w, img/p1.webp 1448w" sizes="(max-width:820px) 100vw, 58vw" alt="Sala integrada à cozinha, com paredes azul e terracota" fetchpriority="high"><div class="chips"><span>102 m²</span><span>2 dormitórios</span><span>1 vaga</span></div></figure>
+</section>
+
+<section class="wrap" aria-label="Números do imóvel">
+  <div class="figs">
+    <div class="fig"><b>102<small>m²</small></b><span class="lab">Área total</span></div>
+    <div class="fig"><b>80<small>m²</small></b><span class="lab">Área privativa</span></div>
+    <div class="fig"><b>2</b><span class="lab">Dormitórios</span></div>
+    <div class="fig"><b>1</b><span class="lab">Suíte</span></div>
+    <div class="fig"><b>1</b><span class="lab">Banheiro</span></div>
+    <div class="fig"><b>1</b><span class="lab">Vaga</span></div>
+  </div>
+</section>
+
+<section class="wrap band">
+  <div class="sec"><span class="lab">Galeria</span><span class="lab">Fotos provisórias</span></div>
+  <div class="gallery">
+    <figure class="g1"><img src="img/p4.webp" srcset="img/p4-720.webp 720w, img/p4.webp 1448w" sizes="(max-width:820px) 82vw, 560px" alt="Sala de estar com sofá e televisão" loading="lazy"><div class="chips"><span>Sala</span></div></figure>
+    <figure class="g2"><img src="img/p6.webp" srcset="img/p6-720.webp 720w, img/p6.webp 1448w" sizes="(max-width:820px) 82vw, 560px" alt="Cozinha planejada com mesa de jantar" loading="lazy"><div class="chips"><span>Cozinha e jantar</span></div></figure>
+    <figure class="g3"><img src="img/p8.webp" srcset="img/p8-720.webp 720w, img/p8.webp 1448w" sizes="(max-width:820px) 82vw, 560px" alt="Dormitório com cama de casal e ar-condicionado" loading="lazy"><div class="chips"><span>Dormitório</span></div></figure>
+    <figure class="g4"><img src="img/p13.webp" srcset="img/p13-720.webp 720w, img/p13.webp 1448w" sizes="(max-width:820px) 82vw, 560px" alt="Segundo dormitório com guarda-roupa" loading="lazy"><div class="chips"><span>2º dormitório</span></div></figure>
+    <figure class="g5"><img src="img/p12.webp" srcset="img/p12-720.webp 720w, img/p12.webp 1448w" sizes="(max-width:820px) 82vw, 560px" alt="Banheiro reformado com box de vidro" loading="lazy"><div class="chips"><span>Banheiro reformado</span></div></figure>
+  </div>
+</section>
+
+<section class="wrap strip"><div class="pay-cta"><p>Gostou do imóvel? Agende sua visita pelo WhatsApp.</p><a class="btn solid" data-wa="Olá! Tenho interesse no apartamento V416 (Bombas, Bombinhas) e gostaria de agendar uma visita." href="https://wa.me/554733691251" target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Agendar visita</a></div></section>
+
+<section class="light band" style="padding-top:0">
+<div class="wrap">
+  <div class="sec"><span class="lab">Detalhes e localização</span><span class="lab">Av. Leopoldo Zarling, 1582</span></div>
+  <div class="cols">
+    <div>
+      <h2>O que acompanha <span>o apartamento</span></h2>
+      <ul class="rows">
+        <li><span>Dormitórios</span><span>2, sendo 1 suíte, ambos com ar-condicionado</span></li>
+        <li><span>Sala e cozinha</span><span>Integradas, com móveis planejados novos</span></li>
+        <li><span>Sacada</span><span>Com churrasqueira</span></li>
+        <li><span>Banheiros</span><span>Totalmente renovados, com box de vidro</span></li>
+        <li><span>Equipado</span><span>Geladeira, micro-ondas, fogão, forno e máquina de lavar</span></li>
+        <li><span>Prédio</span><span>Ed. Res. Estrela do Mar, com elevador</span></li>
+        <li><span>Garagem</span><span>1 vaga</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>A 100 metros <span>da Praia de Bombas</span></h2>
+      <p style="margin:0">Avenida Leopoldo Zarling, em Bombas, uma das regiões mais valorizadas de Bombinhas, com infraestrutura urbana completa.</p>
+      <div class="dist">
+        <div><b>100 m</b><p>Praia de Bombas</p></div>
+        <div><b>Por perto</b><p>Supermercados, farmácias, padarias, academias, bares e restaurantes</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="inv band">
+  <div class="wrap">
+    <div class="sec"><span class="lab">Qualidade de vida</span><span class="lab">Morar perto do mar</span></div>
+    <div class="inv-grid">
+      <h2>Praia perto, <span>rotina simples o ano todo</span></h2>
+      <p>Apartamento reformado em outubro de 2025, semi mobiliado e pronto para uso imediato. Sacada com churrasqueira, ar-condicionado nos dois dormitórios, elevador no prédio e comércio completo por perto.</p>
+    </div>
+  </div>
+</section>
+
+<section class="light band" id="valor">
+<div class="wrap">
+  <div class="sec"><span class="lab">Valor</span><span class="lab">Código V416</span></div>
+  <div class="pay">
+    <div class="pay-price">
+      <span class="lab">A partir de</span>
+      <b>R$ 900.000</b>
+      <p>Apartamento reformado, pronto para morar.</p>
+      <div class="pay-foot"><a class="btn" data-wa="Olá! Tenho interesse no apartamento V416 (Bombas, Bombinhas) e gostaria de fazer uma proposta." href="https://wa.me/554733691251" target="_blank" rel="noopener">Fazer proposta</a></div>
+    </div>
+    <ul class="pay-opts">
+      <li><span class="ico">1</span><div><b>Reformado em outubro de 2025</b><p>Ambientes modernos e bem conservados</p></div></li>
+      <li><span class="ico">2</span><div><b>Semi mobiliado e equipado</b><p>Cozinha completa, lavanderia equipada, guarda-roupa, cama e mesa com 4 cadeiras</p></div></li>
+      <li><span class="ico">3</span><div><b>Pronto para uso imediato</b><p>Mude-se ou aproveite as férias sem obras</p></div></li>
+    </ul>
+  </div>
+  <div class="pay-cta">
+    <p>Agende sua visita com o plantão pelo WhatsApp.</p>
+    <a class="btn solid" data-wa="Olá! Tenho interesse no apartamento V416 (Bombas, Bombinhas) e gostaria de agendar uma visita." href="https://wa.me/554733691251" target="_blank" rel="noopener"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Agendar no WhatsApp</a>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img class="logo" src="img/logo.webp" alt="Morar Imóveis">
+    <p>Imobiliária Morar · Código V416 · Ed. Res. Estrela do Mar, Av. Leopoldo Zarling, 1582, Bombas, Bombinhas/SC, CEP 88215-000.</p>
+    <p>Valores, condições de pagamento e disponibilidade do imóvel podem sofrer alterações sem prévio aviso.</p>
+  </div>
+</footer>
+
+<a class="wa-float" data-wa="Olá! Tenho interesse no apartamento V416 (Bombas, Bombinhas) e gostaria de agendar uma visita." href="https://wa.me/554733691251" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span>Chamar no WhatsApp</span></a>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Fotos do imóvel" hidden>
+  <button class="close" id="lb-close" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="prev" id="lb-prev" aria-label="Foto anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <div class="track" id="lb-track"></div>
+  <button class="next" id="lb-next" aria-label="Próxima foto"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="count" id="lb-count"></div>
+</div>
+
+<script>
+(function(){
+  var imgs=[].slice.call(document.querySelectorAll(".hero-img img,.gallery img"));
+  var lb=document.getElementById("lb"),track=document.getElementById("lb-track"),cnt=document.getElementById("lb-count"),cur=0,opener=null;
+  imgs.forEach(function(im){var s=document.createElement("div");s.className="slide";var p=document.createElement("img");p.loading="lazy";p.decoding="async";p.src=im.src;p.alt=im.alt;s.appendChild(p);track.appendChild(s)});
+  function count(){cnt.textContent=(cur+1)+" / "+imgs.length}
+  function show(i,smooth){cur=(i+imgs.length)%imgs.length;track.scrollTo({left:cur*track.clientWidth,behavior:smooth?"smooth":"auto"});count()}
+  track.addEventListener("scroll",function(){var n=Math.round(track.scrollLeft/track.clientWidth);if(n!==cur&&n>=0&&n<imgs.length){cur=n;count()}});
+  window.addEventListener("resize",function(){if(!lb.hidden)show(cur,false)});
+  function open(i,el){opener=el;lb.hidden=false;document.documentElement.style.overflow="hidden";show(i,false);document.getElementById("lb-close").focus()}
+  function close(){lb.hidden=true;document.documentElement.style.overflow="";if(opener)opener.focus()}
+  imgs.forEach(function(im,i){
+    var f=im.parentNode;f.classList.add("zoomable");f.tabIndex=0;f.setAttribute("role","button");f.setAttribute("aria-label","Ampliar: "+im.alt);
+    f.addEventListener("click",function(){open(i,f)});
+    f.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open(i,f)}});
+  });
+  document.getElementById("lb-close").onclick=close;
+  document.getElementById("lb-prev").onclick=function(){show(cur-1,true)};
+  document.getElementById("lb-next").onclick=function(){show(cur+1,true)};
+  lb.addEventListener("click",function(e){if(e.target===lb||e.target===track||e.target.classList.contains("slide"))close()});
+  document.addEventListener("keydown",function(e){
+    if(lb.hidden)return;
+    if(e.key==="Tab"){var fs=[document.getElementById("lb-close"),document.getElementById("lb-prev"),document.getElementById("lb-next")],k=fs.indexOf(document.activeElement);e.preventDefault();fs[(k+(e.shiftKey?-1:1)+fs.length)%fs.length].focus()}
+    else if(e.key==="Escape")close();
+    else if(e.key==="ArrowLeft")show(cur-1,true);
+    else if(e.key==="ArrowRight")show(cur+1,true);
+  });
+})();
+</script>
+<script>
+// Único ponto de troca do WhatsApp: altere WA_NUMBER (DDI+DDD+número, só dígitos).
+var WA_NUMBER="554733691251";
+document.querySelectorAll("[data-wa]").forEach(function(a){
+  a.href="https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(a.getAttribute("data-wa"));
+});
+</script>
+
+</body></html>
