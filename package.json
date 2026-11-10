@@ -1,0 +1,9 @@
+{
+  "name": "lp-morar-v416",
+  "version": "1.0.0",
+  "description": "LP Morar Imóveis Apartamento V416",
+  "private": true,
+  "scripts": {
+    "build": "node build.js"
+  }
+}
