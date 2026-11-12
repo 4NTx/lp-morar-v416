@@ -39,6 +39,7 @@ export async function onRequestPost({ request, env }) {
       const primeiroNome = partesNome[0] || "";
       const sobrenome = partesNome.length > 1 ? partesNome.slice(1).join(" ") : "";
 
+      const realIp = request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || (b.sheet_data && b.sheet_data.ip) || "";
       const dadosPlanilha = Object.assign({
         data_hora: agora,
         status: "A CLASSIFICAR",
@@ -50,11 +51,11 @@ export async function onRequestPost({ request, env }) {
         imovel: "Apartamento Bombas V416 (R$ 900.000)",
         origem: b.custom_data?.content_category || "site",
         url: b.url || aqui.href,
-        ip: request.headers.get("CF-Connecting-IP") || "",
         cidade: request.cf?.city || "",
         estado: request.cf?.regionCode || "",
         pais: request.cf?.country || "BR"
       }, b.sheet_data || {});
+      dadosPlanilha.ip = realIp;
 
       fetch(sheetsWebhook, {
         method: "POST",

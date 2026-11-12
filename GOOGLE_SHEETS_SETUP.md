@@ -1,30 +1,22 @@
-# Integração Google Sheets — Central Completa de Qualificação de Leads (Meta Ads)
+# Integração Google Sheets — Central de Leads com Rastreamento de IP e Detecção de Bot
 
-Esta planilha atua como **CRM de Primeira Linha** e **Banco de Dados de Públicos da Meta**. 
-Ela armazena automaticamente **24 campos de dados enriquecidos** a cada conversão na Landing Page.
-
----
-
-## Como Usar para Gestão de Públicos (Qualificados vs Desqualificados)
-
-* **Coluna B (Status):** Possui um menu seletor:
-  * `QUALIFICADO` (Fale com ele, tem poder aquisitivo ou perfil de compra).
-  * `DESQUALIFICADO` (Curioso, sem perfil, procurava aluguel barato, sem renda).
-* **Criar Público de Exclusão na Meta:**
-  1. Filtre a planilha por `Status = DESQUALIFICADO`.
-  2. Copie a **Coluna G (Telefone Meta E.164)** e a **Coluna D/E (Nome/Sobrenome)**.
-  3. No Gerenciador de Públicos da Meta, crie um **Público Personalizado de Lista de Clientes** e selecione esse público para **EXCLUIR** dos seus conjuntos de anúncios. Você para de queimar verba com perfis indesejados!
-* **Criar Público Semelhante (Lookalike de Alta Conversão):**
-  1. Filtre por `Status = QUALIFICADO`.
-  2. Suba a lista na Meta e gere um **Lookalike 1% e 2%**. O algoritmo passará a buscar pessoas idênticas aos seus compradores reais!
-* **Auditoria de Criativo Vencedor:**
-  1. A **Coluna I (Anúncio / utm_content)** mostra o anúncio exato que o cliente clicou (ex: `AD03_IMG`), permitindo saber qual criativo traz mais clientes qualificados vs curiosos.
+Esta planilha atua como **CRM de Primeira Linha**, **Detector de Bot/IP Repetido** e **Banco de Dados de Públicos da Meta**. 
+Ela armazena automaticamente **25 campos de dados enriquecidos**, destacando o **IP Real** e alertando se o mesmo IP está enviando múltiplos formulários.
 
 ---
 
-## Código Atualizado do Google Apps Script (24 Colunas Automáticas)
+## Recursos Anti-Bot e Qualificação:
+1. **Coluna C (IP Real do Visitante):** Capturado diretamente da conexão na borda do Cloudflare (`CF-Connecting-IP`).
+2. **Coluna D (Alerta Bot / Frequência):** 
+   * Se for a 1ª vez do IP: `✅ Único (1º envio)` em verde.
+   * Se o mesmo IP já enviou antes: `⚠️ REPETIDO (X vezes) - Possível Bot!` destacado em amarelo/laranja.
+3. **Coluna B (Status):** Dropdown com `QUALIFICADO`, `DESQUALIFICADO`, `A CLASSIFICAR`.
 
-No seu Google Sheets, vá em **Extensões** → **Apps Script**, substitua o código existente por este e clique no disquete (Salvar):
+---
+
+## Código do Google Apps Script (Cole no seu Apps Script)
+
+No Google Sheets, abra **Extensões** → **Apps Script**, substitua todo o código por este e clique no disquete (Salvar):
 
 ```javascript
 function doPost(e) {
@@ -34,6 +26,8 @@ function doPost(e) {
     var headers = [
       "Data/Hora",
       "Status",
+      "IP Real do Visitante",
+      "Alerta Bot / Frequência",
       "Nome Completo",
       "Primeiro Nome (Meta)",
       "Sobrenome (Meta)",
@@ -53,7 +47,6 @@ function doPost(e) {
       "Dispositivo / App",
       "Cidade",
       "Estado",
-      "IP",
       "Facebook Click ID (fbclid)",
       "URL de Acesso"
     ];
@@ -69,10 +62,28 @@ function doPost(e) {
     }
     
     var data = JSON.parse(e.postData.contents);
+    var ipCliente = String(data.ip || "").trim();
+    
+    // Contagem de repetições de IP para detecção automática de BOT
+    var repeticoes = 1;
+    var alertaBot = "✅ Único (1º envio)";
+    if (ipCliente && ipCliente !== "Não detectado") {
+      var allRows = sheet.getDataRange().getValues();
+      for (var i = 1; i < allRows.length; i++) {
+        if (allRows[i][2] && String(allRows[i][2]).trim() === ipCliente) {
+          repeticoes++;
+        }
+      }
+      if (repeticoes > 1) {
+        alertaBot = "⚠️ REPETIDO (" + repeticoes + "x) - Possível Bot!";
+      }
+    }
     
     var row = [
       data.data_hora || new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
       data.status || "A CLASSIFICAR",
+      ipCliente || "Não detectado",
+      alertaBot,
       data.nome || "",
       data.primeiro_nome || "",
       data.sobrenome || "",
@@ -92,15 +103,14 @@ function doPost(e) {
       data.dispositivo || "",
       data.cidade || "",
       data.estado || "",
-      data.ip || "",
       data.fbclid || "",
       data.url || ""
     ];
     
     sheet.appendRow(row);
-    
-    // Regra de Validação de Dados na Coluna B (Status)
     var lastRow = sheet.getLastRow();
+    
+    // Menu Dropdown na Coluna B (Status)
     var cellStatus = sheet.getRange(lastRow, 2);
     var rule = SpreadsheetApp.newDataValidation()
       .requireValueInList(["QUALIFICADO", "DESQUALIFICADO", "A CLASSIFICAR"], true)
@@ -108,7 +118,15 @@ function doPost(e) {
       .build();
     cellStatus.setDataValidation(rule);
     
-    return ContentService.createTextOutput(JSON.stringify({ status: "success", row: lastRow }))
+    // Destaque visual na Coluna D (Alerta Bot)
+    var cellAlerta = sheet.getRange(lastRow, 4);
+    if (repeticoes > 1) {
+      cellAlerta.setBackground("#fff2cc").setFontColor("#b45f06").setFontWeight("bold");
+    } else {
+      cellAlerta.setBackground("#eaf7ee").setFontColor("#0f7a3e");
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: "success", row: lastRow, ip: ipCliente, repeticoes: repeticoes }))
       .setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))

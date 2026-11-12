@@ -462,7 +462,13 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
   var visitante;
   try{visitante=localStorage.getItem("v416_vis");if(!visitante){visitante=novoId();localStorage.setItem("v416_vis",visitante)}}catch(e){visitante=novoId()}
   function fbc(){var c=cookie("_fbc");if(c)return c;var q=new URLSearchParams(location.search).get("fbclid");return q?"fb.1."+Date.now()+"."+q:""}
-  var tInicio=Date.now(),lbAberto=false,valorVisto=false;
+  var tInicio=Date.now(),lbAberto=false,valorVisto=false,userIp="";
+  try{
+    fetch("/cdn-cgi/trace")
+      .then(function(r){return r.text()})
+      .then(function(t){var m=t.match(/ip=([^\n]+)/);if(m)userIp=m[1].trim()})
+      .catch(function(){});
+  }catch(e){}
   var feitos={};
   function evento(nome,dados,padrao,userDataExtra){
     if(feitos[nome] && nome!=="Lead")return; feitos[nome]=1;
@@ -684,6 +690,7 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
       utm_content:utms.utm_content,
       utm_term:utms.utm_term,
       dispositivo:disp,
+      ip:userIp,
       fbclid:utms.fbclid,
       fbp:cookie("_fbp"),
       fbc:fbc(),
