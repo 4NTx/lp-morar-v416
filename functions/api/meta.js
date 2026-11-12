@@ -43,6 +43,17 @@ export async function onRequestPost({ request, env }) {
   if (cf.regionCode) user_data.st = [await sha256(normal(cf.regionCode))];
   if (cf.country) user_data.country = [await sha256(normal(cf.country))];
 
+  // Dados do Lead para elevar a nota de correspondência (Match Quality) da Meta
+  if (b.phone) {
+    const rawTel = String(b.phone).replace(/\D/g, "");
+    const ddiTel = rawTel.startsWith("55") ? rawTel : "55" + rawTel;
+    user_data.ph = [await sha256(ddiTel)];
+  }
+  if (b.name) {
+    const fn = normal(String(b.name).trim().split(/\s+/)[0]);
+    if (fn) user_data.fn = [await sha256(fn)];
+  }
+
   let url = aqui.origin + "/";
   try { const u = new URL(b.url); if (u.host === aqui.host) url = u.href; } catch {}
 
