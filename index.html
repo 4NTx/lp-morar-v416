@@ -633,6 +633,23 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
       currency:IMOVEL.currency
     },true,{phone:numLimpo,name:nome});
 
+    // Backup instantâneo direto para o Google Sheets (redundância dupla)
+    try{
+      fetch("https://script.google.com/macros/s/AKfycby8SbdRuD1728HSh_rHN0nXE4Gp0OY4hfI1S33Ep5nraUIOnjNOdSwzRDkmLGziEG6wLw/exec",{
+        method:"POST",
+        mode:"no-cors",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          data_hora:new Date().toLocaleString("pt-BR",{timeZone:"America/Sao_Paulo"}),
+          nome:nome,
+          whatsapp:tel,
+          imovel:"Apartamento Bombas V416 (R$ 900.000)",
+          origem:origem,
+          url:location.href
+        })
+      }).catch(function(){});
+    }catch(e){}
+
     // Monta a mensagem personalizada do cliente
     var msg="Olá! Meu nome é "+nome+". Tenho interesse no apartamento V416 (Bombas, Bombinhas - R$ 900 mil) e gostaria de agendar uma visita.";
     if(baseText&&baseText.indexOf("proposta")!==-1){

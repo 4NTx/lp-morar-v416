@@ -9,6 +9,7 @@
 
 const PIXEL = "1381890313989473";
 const EVENTOS = new Set(["ViewContent", "Lead", "VerValor", "VerFotos", "Engajado"]);
+const DEFAULT_GOOGLE_SHEETS_WEBHOOK = "https://script.google.com/macros/s/AKfycby8SbdRuD1728HSh_rHN0nXE4Gp0OY4hfI1S33Ep5nraUIOnjNOdSwzRDkmLGziEG6wLw/exec";
 
 async function sha256(texto) {
   const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(texto));
@@ -27,8 +28,8 @@ export async function onRequestPost({ request, env }) {
   if (!EVENTOS.has(b.event_name) || typeof b.event_id !== "string" || b.event_id.length > 80)
     return new Response("evento", { status: 400 });
 
-  // 1. Envia para a Planilha do Google Sheets (se GOOGLE_SHEETS_WEBHOOK estiver configurado)
-  const sheetsWebhook = env.GOOGLE_SHEETS_WEBHOOK;
+  // 1. Envia para a Planilha do Google Sheets (direto ou via GOOGLE_SHEETS_WEBHOOK)
+  const sheetsWebhook = env.GOOGLE_SHEETS_WEBHOOK || DEFAULT_GOOGLE_SHEETS_WEBHOOK;
   if (b.event_name === "Lead" && sheetsWebhook) {
     try {
       const agora = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
