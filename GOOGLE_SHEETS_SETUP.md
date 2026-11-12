@@ -1,44 +1,114 @@
-# Integração com Google Sheets (Central de Leads Automática)
+# Integração Google Sheets — Central Completa de Qualificação de Leads (Meta Ads)
 
-Cada formulário preenchido na Landing Page envia os dados instantaneamente para uma planilha do Google Sheets através do Cloudflare Pages (Functions).
+Esta planilha atua como **CRM de Primeira Linha** e **Banco de Dados de Públicos da Meta**. 
+Ela armazena automaticamente **24 campos de dados enriquecidos** a cada conversão na Landing Page.
 
 ---
 
-## Passo 1: Criar a Planilha e o Apps Script
+## Como Usar para Gestão de Públicos (Qualificados vs Desqualificados)
 
-1. Acesse [sheets.new](https://sheets.new) para abrir uma nova planilha do Google Sheets.
-2. Dê um nome para a planilha, por exemplo: `Leads - Morar Imóveis (V416)`.
-3. No menu superior, clique em: **Extensões** → **Apps Script**.
-4. Apague qualquer código existente no editor e cole o código abaixo:
+* **Coluna B (Status):** Possui um menu seletor:
+  * `QUALIFICADO` (Fale com ele, tem poder aquisitivo ou perfil de compra).
+  * `DESQUALIFICADO` (Curioso, sem perfil, procurava aluguel barato, sem renda).
+* **Criar Público de Exclusão na Meta:**
+  1. Filtre a planilha por `Status = DESQUALIFICADO`.
+  2. Copie a **Coluna G (Telefone Meta E.164)** e a **Coluna D/E (Nome/Sobrenome)**.
+  3. No Gerenciador de Públicos da Meta, crie um **Público Personalizado de Lista de Clientes** e selecione esse público para **EXCLUIR** dos seus conjuntos de anúncios. Você para de queimar verba com perfis indesejados!
+* **Criar Público Semelhante (Lookalike de Alta Conversão):**
+  1. Filtre por `Status = QUALIFICADO`.
+  2. Suba a lista na Meta e gere um **Lookalike 1% e 2%**. O algoritmo passará a buscar pessoas idênticas aos seus compradores reais!
+* **Auditoria de Criativo Vencedor:**
+  1. A **Coluna I (Anúncio / utm_content)** mostra o anúncio exato que o cliente clicou (ex: `AD03_IMG`), permitindo saber qual criativo traz mais clientes qualificados vs curiosos.
+
+---
+
+## Código Atualizado do Google Apps Script (24 Colunas Automáticas)
+
+No seu Google Sheets, vá em **Extensões** → **Apps Script**, substitua o código existente por este e clique no disquete (Salvar):
 
 ```javascript
 function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     
-    // Se a primeira linha estiver vazia, cria os cabeçalhos automaticamente
+    var headers = [
+      "Data/Hora",
+      "Status",
+      "Nome Completo",
+      "Primeiro Nome (Meta)",
+      "Sobrenome (Meta)",
+      "WhatsApp (Contato)",
+      "Telefone Meta (E.164)",
+      "Imóvel",
+      "Anúncio (utm_content)",
+      "Campanha (utm_campaign)",
+      "Origem Mídia (utm_source)",
+      "Canal Mídia (utm_medium)",
+      "Termo (utm_term)",
+      "Origem no Site",
+      "Tempo na Página",
+      "Rolagem Máxima",
+      "Abriu Galeria",
+      "Viu Valor",
+      "Dispositivo / App",
+      "Cidade",
+      "Estado",
+      "IP",
+      "Facebook Click ID (fbclid)",
+      "URL de Acesso"
+    ];
+
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["Data/Hora", "Nome", "WhatsApp", "Imóvel", "Origem do Clique", "Localização (IP)", "Link da Página"]);
-      var headerRange = sheet.getRange(1, 1, 1, 7);
+      sheet.appendRow(headers);
+      var headerRange = sheet.getRange(1, 1, 1, headers.length);
       headerRange.setFontWeight("bold");
       headerRange.setBackground("#751d4b");
       headerRange.setFontColor("#ffffff");
+      headerRange.setHorizontalAlignment("center");
+      sheet.setFrozenRows(1);
     }
     
     var data = JSON.parse(e.postData.contents);
-    var localizacao = (data.cidade ? data.cidade + " - " : "") + (data.estado || "");
     
-    sheet.appendRow([
+    var row = [
       data.data_hora || new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
+      data.status || "A CLASSIFICAR",
       data.nome || "",
+      data.primeiro_nome || "",
+      data.sobrenome || "",
       data.whatsapp || "",
+      data.telefone_meta || "",
       data.imovel || "Apartamento V416 (Bombas)",
-      data.origem || "site",
-      localizacao || "Brasil",
+      data.utm_content || "",
+      data.utm_campaign || "",
+      data.utm_source || "",
+      data.utm_medium || "",
+      data.utm_term || "",
+      data.origem_clique || data.origem || "site",
+      data.tempo_pagina || "",
+      data.rolagem || "",
+      data.viu_galeria || "",
+      data.viu_valor || "",
+      data.dispositivo || "",
+      data.cidade || "",
+      data.estado || "",
+      data.ip || "",
+      data.fbclid || "",
       data.url || ""
-    ]);
+    ];
     
-    return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+    sheet.appendRow(row);
+    
+    // Regra de Validação de Dados na Coluna B (Status)
+    var lastRow = sheet.getLastRow();
+    var cellStatus = sheet.getRange(lastRow, 2);
+    var rule = SpreadsheetApp.newDataValidation()
+      .requireValueInList(["QUALIFICADO", "DESQUALIFICADO", "A CLASSIFICAR"], true)
+      .setAllowInvalid(false)
+      .build();
+    cellStatus.setDataValidation(rule);
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: "success", row: lastRow }))
       .setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
@@ -46,31 +116,3 @@ function doPost(e) {
   }
 }
 ```
-
----
-
-## Passo 2: Implantar como Web App
-
-1. No canto superior direito do Apps Script, clique no botão azul **Implantar** (Deploy) → **Nova implantação** (New deployment).
-2. Clique no ícone de engrenagem ao lado de "Selecionar tipo" e escolha **App da Web** (Web app).
-3. Preencha as configurações:
-   * **Descrição:** `Webhook Leads Morar Imóveis`
-   * **Executar como:** `Eu` (sua conta Google)
-   * **Quem pode acessar:** `Qualquer pessoa` (Anyone) *(essencial para o Cloudflare conseguir enviar os dados sem login)*
-4. Clique em **Implantar**.
-5. Autorize o acesso com sua conta Google (se o Google exibir tela de aviso, clique em *Avançado* → *Acessar script*).
-6. Copie a **URL do app da Web** gerada (começa com `https://script.google.com/macros/s/.../exec`).
-
----
-
-## Passo 3: Adicionar a URL no Cloudflare Pages
-
-1. Acesse o painel da Cloudflare: [dash.cloudflare.com](https://dash.cloudflare.com)
-2. Vá em **Workers e Pages** → selecione o projeto `lp-morar-v416`.
-3. Vá na aba **Settings** (Configurações) → **Variables and Secrets** (Variáveis e Segredos).
-4. Clique em **Add** (Adicionar variável):
-   * **Nome da variável:** `GOOGLE_SHEETS_WEBHOOK`
-   * **Valor:** *(Cole a URL do Apps Script que você copiou no Passo 2)*
-5. Clique em **Save** (Salvar).
-
-Pronto! A partir desse momento, cada novo lead preenchido na página cairá na planilha em tempo real e de forma 100% segura.

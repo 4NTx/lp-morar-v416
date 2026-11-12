@@ -462,6 +462,7 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
   var visitante;
   try{visitante=localStorage.getItem("v416_vis");if(!visitante){visitante=novoId();localStorage.setItem("v416_vis",visitante)}}catch(e){visitante=novoId()}
   function fbc(){var c=cookie("_fbc");if(c)return c;var q=new URLSearchParams(location.search).get("fbclid");return q?"fb.1."+Date.now()+"."+q:""}
+  var tInicio=Date.now(),lbAberto=false,valorVisto=false;
   var feitos={};
   function evento(nome,dados,padrao,userDataExtra){
     if(feitos[nome] && nome!=="Lead")return; feitos[nome]=1;
@@ -470,7 +471,9 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
     var payload={event_name:nome,event_id:eid,url:location.href,fbp:cookie("_fbp"),fbc:fbc(),external_id:visitante,custom_data:dados};
     if(userDataExtra){
       if(userDataExtra.phone)payload.phone=userDataExtra.phone;
+      if(userDataExtra.phone_formatted)payload.phone_formatted=userDataExtra.phone_formatted;
       if(userDataExtra.name)payload.name=userDataExtra.name;
+      if(userDataExtra.sheet_data)payload.sheet_data=userDataExtra.sheet_data;
     }
     var corpo=JSON.stringify(payload);
     try{
@@ -485,12 +488,12 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
 
   // VerFotos: a galeria ampliada abriu
   var lb=document.getElementById("lb");
-  if(lb&&window.MutationObserver)new MutationObserver(function(){if(!lb.hidden)evento("VerFotos",copia({}),false)}).observe(lb,{attributes:true,attributeFilter:["hidden"]});
+  if(lb&&window.MutationObserver)new MutationObserver(function(){if(!lb.hidden){lbAberto=true;evento("VerFotos",copia({}),false)}}).observe(lb,{attributes:true,attributeFilter:["hidden"]});
 
   // VerValor: metade da seção de valor apareceu na tela
   var valor=document.getElementById("valor");
   if(valor&&window.IntersectionObserver){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){evento("VerValor",copia({}),false);io.disconnect()}})},{threshold:.5});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){valorVisto=true;evento("VerValor",copia({}),false);io.disconnect()}})},{threshold:.5});
     io.observe(valor);
   }
 
@@ -512,6 +515,35 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
     if(a.closest(".pay-foot"))return "fazer-proposta";
     if(a.closest("#valor"))return "secao-valor";
     return "outro";
+  }
+
+  // Captura de UTMs e parâmetros da Meta
+  function extrairUtms(){
+    var p=new URLSearchParams(window.location.search);
+    return {
+      utm_source:p.get("utm_source")||"",
+      utm_medium:p.get("utm_medium")||"",
+      utm_campaign:p.get("utm_campaign")||"",
+      utm_content:p.get("utm_content")||"",
+      utm_term:p.get("utm_term")||"",
+      fbclid:p.get("fbclid")||""
+    };
+  }
+
+  // Detecção amigável de dispositivo e aplicativo
+  function detectarDispositivo(){
+    var ua=navigator.userAgent||"";
+    var isMob=/Android|iPhone|iPad|iPod|Windows Phone/i.test(ua);
+    var os="Outro";
+    if(/iPhone|iPad|iPod/i.test(ua))os="iOS";
+    else if(/Android/i.test(ua))os="Android";
+    else if(/Windows/i.test(ua))os="Windows";
+    else if(/Mac/i.test(ua))os="Mac";
+    else if(/Linux/i.test(ua))os="Linux";
+    var app="";
+    if(/Instagram/i.test(ua))app=" [Instagram]";
+    else if(/FBAN|FBAV/i.test(ua))app=" [Facebook]";
+    return (isMob?"Mobile":"Desktop")+" ("+os+")"+app;
   }
 
   // Máscara de telefone brasileiro (DDD + 8 ou 9 dígitos)
@@ -623,6 +655,42 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
       localStorage.setItem("morar_lead_tel",tel);
     }catch(e){}
 
+    var partesNome=nome.split(/\s+/);
+    var primeiroNome=partesNome[0]||"";
+    var sobrenome=partesNome.length>1?partesNome.slice(1).join(" "):"";
+    var ddiTel=numLimpo.startsWith("55")?numLimpo:("55"+numLimpo);
+    var utms=extrairUtms();
+    var tempoSeg=Math.round((Date.now()-tInicio)/1000)+"s";
+    var rolagemPct=Math.round(rolou*100)+"%";
+    var disp=detectarDispositivo();
+
+    var dadosPlanilha={
+      data_hora:new Date().toLocaleString("pt-BR",{timeZone:"America/Sao_Paulo"}),
+      status:"A CLASSIFICAR",
+      nome:nome,
+      primeiro_nome:primeiroNome,
+      sobrenome:sobrenome,
+      whatsapp:tel,
+      telefone_meta:ddiTel,
+      imovel:"Apartamento Bombas V416 (R$ 900.000)",
+      origem_clique:origem,
+      tempo_pagina:tempoSeg,
+      rolagem:rolagemPct,
+      viu_galeria:lbAberto?"Sim":"Não",
+      viu_valor:valorVisto?"Sim":"Não",
+      utm_source:utms.utm_source,
+      utm_medium:utms.utm_medium,
+      utm_campaign:utms.utm_campaign,
+      utm_content:utms.utm_content,
+      utm_term:utms.utm_term,
+      dispositivo:disp,
+      fbclid:utms.fbclid,
+      fbp:cookie("_fbp"),
+      fbc:fbc(),
+      external_id:visitante,
+      url:window.location.href
+    };
+
     // Dispara Lead oficial Meta (Pixel + API de Conversões)
     evento("Lead",{
       content_ids:IMOVEL.content_ids,
@@ -631,7 +699,7 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
       content_category:origem,
       value:IMOVEL.value,
       currency:IMOVEL.currency
-    },true,{phone:numLimpo,name:nome});
+    },true,{phone:numLimpo,phone_formatted:tel,name:nome,sheet_data:dadosPlanilha});
 
     // Backup instantâneo direto para o Google Sheets (redundância dupla)
     try{
@@ -639,14 +707,7 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
         method:"POST",
         mode:"no-cors",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          data_hora:new Date().toLocaleString("pt-BR",{timeZone:"America/Sao_Paulo"}),
-          nome:nome,
-          whatsapp:tel,
-          imovel:"Apartamento Bombas V416 (R$ 900.000)",
-          origem:origem,
-          url:location.href
-        })
+        body:JSON.stringify(dadosPlanilha)
       }).catch(function(){});
     }catch(e){}
 

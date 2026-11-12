@@ -33,20 +33,33 @@ export async function onRequestPost({ request, env }) {
   if (b.event_name === "Lead" && sheetsWebhook) {
     try {
       const agora = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+      const rawTel = String(b.phone || "").replace(/\D/g, "");
+      const ddiTel = rawTel.startsWith("55") ? rawTel : ("55" + rawTel);
+      const partesNome = String(b.name || "").trim().split(/\s+/);
+      const primeiroNome = partesNome[0] || "";
+      const sobrenome = partesNome.length > 1 ? partesNome.slice(1).join(" ") : "";
+
+      const dadosPlanilha = Object.assign({
+        data_hora: agora,
+        status: "A CLASSIFICAR",
+        nome: b.name || "",
+        primeiro_nome: primeiroNome,
+        sobrenome: sobrenome,
+        whatsapp: b.phone_formatted || b.phone || "",
+        telefone_meta: ddiTel,
+        imovel: "Apartamento Bombas V416 (R$ 900.000)",
+        origem: b.custom_data?.content_category || "site",
+        url: b.url || aqui.href,
+        ip: request.headers.get("CF-Connecting-IP") || "",
+        cidade: request.cf?.city || "",
+        estado: request.cf?.regionCode || "",
+        pais: request.cf?.country || "BR"
+      }, b.sheet_data || {});
+
       fetch(sheetsWebhook, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          data_hora: agora,
-          nome: b.name || "",
-          whatsapp: b.phone || "",
-          imovel: "Apartamento Bombas V416 (R$ 900.000)",
-          origem: b.custom_data?.content_category || "site",
-          url: b.url || aqui.href,
-          ip: request.headers.get("CF-Connecting-IP") || "",
-          cidade: request.cf?.city || "",
-          estado: request.cf?.regionCode || ""
-        }),
+        body: JSON.stringify(dadosPlanilha),
       }).catch(() => {});
     } catch (e) {}
   }
