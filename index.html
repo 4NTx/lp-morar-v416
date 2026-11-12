@@ -601,7 +601,7 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
   });
 
   // Processamento e envio com disparo do Lead
-  function processarEnvio(nome,tel,origem,baseText){
+  function processarEnvio(nome,tel,origem,baseText,btnEl){
     nome=String(nome||"").trim();
     var numLimpo=String(tel||"").replace(/\D/g,"");
     if(!nome){
@@ -611,6 +611,11 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
     if(numLimpo.length<10){
       alert("Por favor, informe um WhatsApp válido com DDD.");
       return;
+    }
+
+    if(btnEl){
+      btnEl.disabled=true;
+      btnEl.innerHTML="<span>Conectando ao WhatsApp...</span>";
     }
 
     try{
@@ -636,11 +641,10 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
 
     var waUrl="https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(msg);
 
-    closeLeadModal();
-
     setTimeout(function(){
+      closeLeadModal();
       window.location.href=waUrl;
-    },120);
+    },350);
   }
 
   if(formModal){
@@ -648,7 +652,8 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
       e.preventDefault();
       var nome=document.getElementById("modal-nome").value;
       var tel=document.getElementById("modal-tel").value;
-      processarEnvio(nome,tel,currentPlace,currentContext);
+      var btn=formModal.querySelector("button[type=submit]");
+      processarEnvio(nome,tel,currentPlace,currentContext,btn);
     });
   }
 
@@ -657,7 +662,8 @@ document.querySelectorAll("[data-wa]").forEach(function(a){
       e.preventDefault();
       var nome=document.getElementById("inline-nome").value;
       var tel=document.getElementById("inline-tel").value;
-      processarEnvio(nome,tel,"formulario-inline","agendar visita");
+      var btn=formInline.querySelector("button[type=submit]");
+      processarEnvio(nome,tel,"formulario-inline","agendar visita",btn);
     });
   }
 })();
