@@ -18,9 +18,6 @@ async function sha256(texto) {
 const normal = (s) => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
 
 export async function onRequestPost({ request, env }) {
-  const token = env.META_CAPI_TOKEN;
-  if (!token) return new Response("META_CAPI_TOKEN não configurado", { status: 503 });
-
   const aqui = new URL(request.url);
   const origem = request.headers.get("Origin");
   if (origem && new URL(origem).host !== aqui.host) return new Response("origem", { status: 403 });
@@ -29,6 +26,33 @@ export async function onRequestPost({ request, env }) {
   try { b = await request.json(); } catch { return new Response("json", { status: 400 }); }
   if (!EVENTOS.has(b.event_name) || typeof b.event_id !== "string" || b.event_id.length > 80)
     return new Response("evento", { status: 400 });
+
+  // 1. Envia para a Planilha do Google Sheets (se GOOGLE_SHEETS_WEBHOOK estiver configurado)
+  const sheetsWebhook = env.GOOGLE_SHEETS_WEBHOOK;
+  if (b.event_name === "Lead" && sheetsWebhook) {
+    try {
+      const agora = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+      fetch(sheetsWebhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          data_hora: agora,
+          nome: b.name || "",
+          whatsapp: b.phone || "",
+          imovel: "Apartamento Bombas V416 (R$ 900.000)",
+          origem: b.custom_data?.content_category || "site",
+          url: b.url || aqui.href,
+          ip: request.headers.get("CF-Connecting-IP") || "",
+          cidade: request.cf?.city || "",
+          estado: request.cf?.regionCode || ""
+        }),
+      }).catch(() => {});
+    } catch (e) {}
+  }
+
+  // 2. Envia para a API de Conversões da Meta (se token configurado)
+  const token = env.META_CAPI_TOKEN;
+  if (!token) return new Response("ok (sheets only)", { status: 200 });
 
   const user_data = {
     client_ip_address: request.headers.get("CF-Connecting-IP") || undefined,
